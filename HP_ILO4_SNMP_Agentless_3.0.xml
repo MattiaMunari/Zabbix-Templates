@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.0</version>
-    <date>2017-05-18T12:32:04Z</date>
+    <date>2020-04-29T09:02:28Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -32,6 +32,9 @@
                 </application>
                 <application>
                     <name>System Health</name>
+                </application>
+                <application>
+                    <name>System Temperature</name>
                 </application>
             </applications>
             <items>
@@ -316,6 +319,49 @@
                     </valuemap>
                     <logtimefmt/>
                 </item>
+                <item>
+                    <name>Inlet Ambient Temp</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.8.1.4.0.1</snmp_oid>
+                    <key>InletAmbientTemp</key>
+                    <delay>30</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units>°C</units>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>{$SNMP_PORT}</port>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>System Temperature</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
             </items>
             <discovery_rules>
                 <discovery_rule>
@@ -404,47 +450,33 @@
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaCntlrCondition[{#SNMPVALUE}].last()}=1</expression>
-                            
-                            
                             <name>RAID Controller [{#SNMPVALUE}] need  check (Other)</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaCntlrCondition[{#SNMPVALUE}].last()}&gt;2</expression>
-                            
-                           
                             <name>RAID Controller  [{#SNMPVALUE}] not OK</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes/>
@@ -583,113 +615,78 @@
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaPhyDrvStatus[{#SNMPVALUE}].last()}=1</expression>
-                            
-                            
                             <name>Check HDD in bay [{#SNMPVALUE}] status (Other)</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaPhyDrvStatus[{#SNMPVALUE}].last()}&gt;4</expression>
-                            
-                           
                             <name>HDD in bay [{#SNMPVALUE}] Erasing</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaPhyDrvStatus[{#SNMPVALUE}].last()}=3</expression>
-                            
-                            
                             <name>HDD in bay [{#SNMPVALUE}] Failure</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaPhyDrvSerialNum[{#SNMPVALUE}].diff()}=1</expression>
-                            
-                            
                             <name>HDD in bay [{#SNMPVALUE}] has been replaced</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqDaPhyDrvStatus[{#SNMPVALUE}].last()}=4</expression>
-                            
-                            
                             <name>HDD in bay [{#SNMPVALUE}] has predictive failure</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes/>
@@ -1067,112 +1064,78 @@
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyRedundant[{#SNMPVALUE}].last()}=2</expression>
-                            
-                            
                             <name>Power Supply [{#SNMPVALUE}] has no redundancy.</name>
-                            
-                            
                             <url/>
                             <status>1</status>
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyMainVoltage[{#SNMPVALUE}].last()}&gt;240</expression>
-                            
-                            
+                            <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyMainVoltage[{#SNMPVALUE}].last()}&gt;253</expression>
                             <name>Power Supply [{#SNMPVALUE}] high input voltage</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyCapacityUsedPerc[{#SNMPVALUE}].avg(15m)}&gt;75</expression>
-                            
-                            
                             <name>Power Supply [{#SNMPVALUE}] High Usage</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyCondition[{#SNMPVALUE}].last()}&gt;2</expression>
-                            
                             <name>Power Supply [{#SNMPVALUE}] is not OK</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyMainVoltage[{#SNMPVALUE}].last()}&lt;220</expression>
-                            
-                            
+                            <expression>{HP Server Health Template:cpqHeFltTolPowerSupplyMainVoltage[{#SNMPVALUE}].last()}&lt;209</expression>
                             <name>Power Supply [{#SNMPVALUE}] low input voltage</name>
-                            
-                            
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} is unavailable by ICMP</name>
                                     <expression>{HP Server Health Template:icmpping.max(#3)}=0</expression>
-                                    
                                 </dependency>
                             </dependencies>
-                            
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes>
@@ -1243,8 +1206,133 @@
                     </graph_prototypes>
                     <host_prototypes/>
                 </discovery_rule>
+                <discovery_rule>
+                    <name>Temperature Sensors</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>discovery[{#SENSORCODE},.1.3.6.1.4.1.232.6.2.6.8.1.4.0]</snmp_oid>
+                    <key>cpqTempSensorsIndex-[{#SENSORCODE}]</key>
+                    <delay>120</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>{$SNMP_PORT}</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>30</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Temperatue Sensor [{#SNMPINDEX}]</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.6.2.6.8.1.4.0.{#SNMPINDEX}</snmp_oid>
+                            <key>Temp[{#SNMPINDEX}]</key>
+                            <delay>30</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>°C</units>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>{$SNMP_PORT}</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>System Temperature</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <application_prototypes/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{HP Server Health Template:Temp[{#SNMPINDEX}].last(,0)}&gt;29</expression>
+                            <name>Temperature Too High</name>
+                            <url/>
+                            <status>1</status>
+                            <priority>4</priority>
+                            <description/>
+                            <type>0</type>
+                            <dependencies/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Temperatue Sensor [{#SNMPINDEX}]</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>007700</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>7</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>HP Server Health Template</host>
+                                        <key>Temp[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <host_prototypes/>
+                </discovery_rule>
             </discovery_rules>
-            <!--httptests/-->
             <macros/>
             <templates>
                 <template>
@@ -1254,6 +1342,52 @@
             <screens/>
         </template>
     </templates>
+    <triggers>
+        <trigger>
+            <expression>{HP Server Health Template:InletAmbientTemp.last(,0)}&gt;29</expression>
+            <name>Inlet Ambient Temp Too High</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+    </triggers>
+    <graphs>
+        <graph>
+            <name>Inlet Ambient Temp</name>
+            <width>900</width>
+            <height>200</height>
+            <yaxismin>0.0000</yaxismin>
+            <yaxismax>100.0000</yaxismax>
+            <show_work_period>1</show_work_period>
+            <show_triggers>1</show_triggers>
+            <type>0</type>
+            <show_legend>1</show_legend>
+            <show_3d>0</show_3d>
+            <percent_left>0.0000</percent_left>
+            <percent_right>0.0000</percent_right>
+            <ymin_type_1>0</ymin_type_1>
+            <ymax_type_1>0</ymax_type_1>
+            <ymin_item_1>0</ymin_item_1>
+            <ymax_item_1>0</ymax_item_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>7</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>HP Server Health Template</host>
+                        <key>InletAmbientTemp</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
     <value_maps>
         <value_map>
             <name>HP Insight System Status</name>
@@ -1269,10 +1403,6 @@
                 <mapping>
                     <value>3</value>
                     <newvalue>Degraded</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>Failure</newvalue>
                 </mapping>
             </mappings>
         </value_map>
